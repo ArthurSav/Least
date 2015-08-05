@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Type1"
+        tools:text="Type1"
         android:id="@+id/textView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:padding="50dp"
-        android:background="#4f74d3"
-        android:layout_margin="10dp"/>
+        android:background="#E64A19"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="30dp"/>
 </RelativeLayout>
