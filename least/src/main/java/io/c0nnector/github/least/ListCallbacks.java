@@ -1,4 +1,4 @@
-package io.c0nnector.github.leastview;
+package io.c0nnector.github.least;
 
 public interface ListCallbacks<Viewholder extends BaseViewHolder, Item>{
 

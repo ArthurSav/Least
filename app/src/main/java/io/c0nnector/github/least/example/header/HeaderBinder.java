@@ -2,7 +2,7 @@ package io.c0nnector.github.least.example.header;
 
 import android.support.annotation.LayoutRes;
 
-import io.c0nnector.github.leastview.Binder;
+import io.c0nnector.github.least.Binder;
 
 
 /**

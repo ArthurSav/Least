@@ -1,10 +1,10 @@
-package io.c0nnector.github.leastview;
+package io.c0nnector.github.least;
 
 
 import android.support.annotation.LayoutRes;
 import android.view.ViewGroup;
 
-import io.c0nnector.github.leastview.util.UtilList;
+import io.c0nnector.github.least.util.UtilList;
 
 
 /**

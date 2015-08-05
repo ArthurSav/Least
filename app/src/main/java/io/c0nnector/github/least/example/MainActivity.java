@@ -16,8 +16,8 @@ import io.c0nnector.github.least.example.header.HeaderViewHolder;
 import io.c0nnector.github.least.example.user.User;
 import io.c0nnector.github.least.example.user.UserBinder;
 import io.c0nnector.github.least.example.user.UserViewHolderHolder;
-import io.c0nnector.github.leastview.LeastAdapter;
-import io.c0nnector.github.leastview.LeastView;
+import io.c0nnector.github.least.LeastAdapter;
+import io.c0nnector.github.least.LeastView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setupRecyclerView(){
+
+
 
         //adapter builder
         LeastAdapter adapter = new LeastAdapter.Builder()

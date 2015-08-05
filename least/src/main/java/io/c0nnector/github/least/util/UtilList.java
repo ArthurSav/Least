@@ -1,4 +1,4 @@
-package io.c0nnector.github.leastview.util;
+package io.c0nnector.github.least.util;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;

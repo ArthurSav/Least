@@ -1,4 +1,4 @@
-package io.c0nnector.github.leastview;
+package io.c0nnector.github.least;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
