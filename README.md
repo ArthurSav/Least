@@ -28,7 +28,7 @@ Least amount of effort to add multiple views in a recyclerview.
                 .build(this);
 
 ```
-![Alt Text](http://fat.gfycat.com/AbsoluteMediocreBaiji.gif)
+<img src="http://fat.gfycat.com/AbsoluteMediocreBaiji.gif" width="300">
 
 ####Details
 The idea is that you bind an object class to a viewholder. The object class is your typical list item e.g User.class
