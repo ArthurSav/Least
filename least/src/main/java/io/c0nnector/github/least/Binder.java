@@ -1,7 +1,10 @@
 package io.c0nnector.github.least;
 
 
+import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -16,15 +19,22 @@ import io.c0nnector.github.least.util.UtilList;
  */
 public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
 
+    @Nullable
+    protected Context context;
+
+    @Nullable
     BindListener<Viewholder, Item> bindListener;
 
+    @Nullable
     ListItemListener<Viewholder, Item> listItemListener;
 
     @LayoutRes
     int layoutId;
 
+    @NonNull
     Class<Item> itemClass;
 
+    @NonNull
     Class<Viewholder> cls;
 
     /**
@@ -38,6 +48,21 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
         this.itemClass = itemClass;
         this.cls = cls;
         this.layoutId = layoutId;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param context
+     * @param itemClass An object to be tied with the viewholder. e.g User.class is tied to UserViewholder.class
+     * @param cls viewholder class to be tied to a list object e.g UserViewholder.class is tied to User.class
+     * @param layoutId layout id for the viewholder view
+     */
+    public Binder(Context context, Class<Item> itemClass, Class<Viewholder> cls, @LayoutRes int layoutId) {
+        this.itemClass = itemClass;
+        this.cls = cls;
+        this.layoutId = layoutId;
+        this.context = context;
     }
 
 
@@ -117,4 +142,5 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
 
         return this;
     }
+
 }
