@@ -2,6 +2,7 @@ package io.c0nnector.github.least;
 
 
 import android.support.annotation.LayoutRes;
+import android.view.View;
 import android.view.ViewGroup;
 
 import io.c0nnector.github.least.util.UtilList;
@@ -15,8 +16,9 @@ import io.c0nnector.github.least.util.UtilList;
  */
 public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
 
-    ListCallbacks<Viewholder, Item> callback;
+    BindListener<Viewholder, Item> bindListener;
 
+    ListItemListener<Viewholder, Item> listItemListener;
 
     @LayoutRes
     int layoutId;
@@ -38,21 +40,6 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
         this.layoutId = layoutId;
     }
 
-    /**
-     * Option to add a onBind callback
-     *
-     * @param itemClass
-     * @param cls
-     * @param layoutId
-     * @param callback
-     */
-    public Binder(Class<Item> itemClass, Class<Viewholder> cls, @LayoutRes int layoutId, ListCallbacks<Viewholder, Item> callback) {
-        this.itemClass = itemClass;
-        this.cls = cls;
-        this.layoutId = layoutId;
-        this.callback = callback;
-    }
-
 
     /**
      * Creates a viewholder given the class and layout
@@ -71,11 +58,24 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
      * @param item list item tied to the viewholder
      * @param position list position
      */
-    public void onBindCallback(Viewholder holder, Item item, int position){
+    public void onBindCallback(final Viewholder holder, final Item item, final int position){
 
         onBindViewHolder(holder, item, position);
 
-        if (callback !=null) callback.onBindViewHolder(holder, item, position);
+        //bind callback
+        if (bindListener !=null) bindListener.onBindViewHolder(holder, item, position);
+
+        //list item click callback
+        if (listItemListener !=null) {
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    listItemListener.onListItemClick(holder, item, position);
+                }
+            });
+        }
     }
 
     /**
@@ -89,4 +89,32 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
 
     public abstract void onBindViewHolder(Viewholder holder, Item item, int position);
 
+
+
+    /*****************************************************
+     * ---------------- * Listeners * --------------------
+     *
+     *
+     *
+     ****************************************************/
+
+    /**
+     * OnBind listener
+     * @return
+     */
+    public Binder setBindListener(BindListener<Viewholder, Item> bindListener){
+        this.bindListener = bindListener;
+
+        return this;
+    }
+
+    /**
+     * List item click listener
+     * @return
+     */
+    public Binder setListItemClickListener(ListItemListener<Viewholder, Item> listener){
+        this.listItemListener = listener;
+
+        return this;
+    }
 }
