@@ -58,4 +58,27 @@ public class LeastView extends RecyclerView {
     public void setDivider(HorizontalDividerItemDecoration horizontalDividerItemDecoration) {
         addItemDecoration(horizontalDividerItemDecoration);
     }
+
+    /*****************************************************
+     * ---------------- * Orientation * --------------------
+     *
+     *
+     *
+     ****************************************************/
+
+    public void horizontal(boolean setHorizontalOrientation){
+
+        if (manager !=null) {
+
+            if (setHorizontalOrientation) manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        }
+    }
+
+    public void vertical(boolean setVerticalOrientation){
+
+        if (manager !=null) {
+
+            if (setVerticalOrientation) manager.setOrientation(LinearLayoutManager.VERTICAL);
+        }
+    }
 }
