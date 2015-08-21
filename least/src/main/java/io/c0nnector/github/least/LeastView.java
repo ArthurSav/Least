@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
+import io.c0nnector.github.least.managers.LinearLayoutManagerWrap;
+
 /**
  * An extension of the recyclerview. Adds some useful functionality
  */
@@ -39,20 +41,42 @@ public class LeastView extends RecyclerView {
     }
 
     protected void init(Context context) {
+        setDefaultLayoutManager();
+    }
 
-        manager = new LinearLayoutManager(context);
-        manager.setOrientation(OrientationHelper.VERTICAL);
 
+    private void setDefaultLayoutManager(){
+
+        this.manager = new LinearLayoutManager(getContext(), OrientationHelper.VERTICAL, false);
         setLayoutManager(manager);
     }
+
+    /**
+     * Will set a custom linearlayout manager that enables wrap_content in the recyclerview
+     * @param enable
+     */
+    public void enableContentWrap(boolean enable){
+
+        if (enable) {
+            this.manager = new LinearLayoutManagerWrap(getContext(), VERTICAL, false);
+            setLayoutManager(manager);
+        }
+
+        else setDefaultLayoutManager();
+    }
+
 
     /*****************************************************
      * ---------------- * Divider * --------------------
      ****************************************************/
 
+    /**
+     * Adds a list item divider
+     * @param set
+     */
     public void setDivider(boolean set) {
-        if (set)
-            addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
+        if (set) addItemDecoration(new HorizontalDividerItemDecoration.Builder(getContext()).build());
+        //// TODO: on false remove decoration
     }
 
     public void setDivider(HorizontalDividerItemDecoration horizontalDividerItemDecoration) {
@@ -66,19 +90,25 @@ public class LeastView extends RecyclerView {
      *
      ****************************************************/
 
+    /**
+     * Horizontal orientation
+     * @param setHorizontalOrientation
+     */
     public void horizontal(boolean setHorizontalOrientation){
 
         if (manager !=null) {
-
             if (setHorizontalOrientation) manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         }
     }
 
+    /**
+     * Vertical orientation
+     * @param setVerticalOrientation
+     */
     public void vertical(boolean setVerticalOrientation){
 
         if (manager !=null) {
-
-            if (setVerticalOrientation) manager.setOrientation(LinearLayoutManager.VERTICAL);
+            if (setVerticalOrientation) manager.setOrientation(LinearLayoutManager.VERTICAL) ;
         }
     }
 }

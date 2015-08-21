@@ -3,6 +3,7 @@ package io.c0nnector.github.least;
 
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,10 +112,6 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return items.get(position);
     }
 
-    public void addItem(Object object){
-        this.items.add(object);
-    }
-
     public List<Object> getList(){
         return items;
     }
@@ -166,4 +163,92 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return new LeastAdapter(context, this);
         }
     }
+
+    /*****************************************************
+     * ---------------- * Helpers * --------------------
+     *
+     *
+     *
+     ****************************************************/
+
+    /**
+     * Adds items to the list
+     * @param items
+     */
+    public void add(@NonNull List<Object> items) {
+
+        int previousCount = getItemPositions();
+
+        getList().addAll(items);
+
+        notifyItemRangeInserted(previousCount + 1, items.size());
+    }
+
+    /**
+     * Adds an item at the end of the list
+     * @param item
+     */
+    public void add(Object item) {
+
+        getList().add(item);
+
+        int size = getItemPositions();
+
+        notifyItemInserted(size);
+
+        notifyItemRangeChanged(size, 1);
+    }
+
+    /**
+     * Adds a new item at a specified position
+     * @param item
+     * @param position list position to insert
+     */
+    public void add(Object item, int position){
+
+        getList().add(position, item);
+
+        notifyItemInserted(position);
+
+        notifyItemRangeChanged(position, getItemCount());
+    }
+
+    /**
+     * Replaces current list of items
+     * @param items
+     */
+    public void replace(@NonNull List<Object> items){
+
+        getList().clear();
+
+        getList().addAll(items);
+
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Remove an item
+     * @param position item position in the list
+     */
+    public void remove(int position) {
+
+        getList().remove(position);
+
+        notifyItemRemoved(position);
+
+        notifyItemRangeChanged(position, getItemCount());
+    }
+
+    /**
+     * Checks if a position is valid in the list
+     * @param position
+     * @return
+     */
+    public boolean positionExists(int position) {
+
+        int size = getItemCount() - 1;
+
+        return position <= size;
+    }
+
 }
