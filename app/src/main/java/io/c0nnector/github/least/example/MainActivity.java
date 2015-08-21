@@ -53,11 +53,13 @@ public class MainActivity extends AppCompatActivity {
                 .item("Section 2")
                 .items(getBanners())
 
+
                 .item("Section 3")
                 .items(getUsers())
 
                 // 3) done
                 .build(this);
+
 
         leastView.setAdapter(adapter);
 

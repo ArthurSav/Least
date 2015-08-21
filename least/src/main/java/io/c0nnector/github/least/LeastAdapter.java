@@ -175,7 +175,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * Adds items to the list
      * @param items
      */
-    public void add(@NonNull List<Object> items) {
+    public void add(@NonNull List<? extends Object> items) {
 
         int previousCount = getItemPositions();
 
@@ -217,7 +217,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * Replaces current list of items
      * @param items
      */
-    public void replace(@NonNull List<Object> items){
+    public void replace(@NonNull List<? extends Object> items){
 
         getList().clear();
 
