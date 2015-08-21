@@ -240,6 +240,18 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     /**
+     * Removes all items from the list
+     */
+    public void removeAll(){
+
+        int size = getItemCount();
+
+        getList().clear();
+
+        notifyItemRangeRemoved(0, size);
+    }
+
+    /**
      * Checks if a position is valid in the list
      * @param position
      * @return
