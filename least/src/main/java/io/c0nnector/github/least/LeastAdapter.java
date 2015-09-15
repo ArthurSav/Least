@@ -250,6 +250,18 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     /**
+     * Replace a list item at a given position
+     * @param item item to replace with
+     * @param position position to replace
+     */
+    public void replace(Object item, int position){
+
+        getList().set(position, item);
+
+        notifyItemChanged(position);
+    }
+
+    /**
      * Replaces current list of items
      * @param items
      */
