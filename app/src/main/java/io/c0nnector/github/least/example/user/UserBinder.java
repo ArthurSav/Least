@@ -22,4 +22,9 @@ public class UserBinder extends Binder<UserViewHolderHolder, User> {
     public void onBindViewHolder(UserViewHolderHolder holder, User user, int position) {
         holder.textView.setText(user.getName());
     }
+
+    @Override
+    public int getViewType() {
+        return 0;
+    }
 }

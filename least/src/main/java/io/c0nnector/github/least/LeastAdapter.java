@@ -21,6 +21,12 @@ import io.c0nnector.github.least.util.UtilList;
  */
 public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
+
+    /**
+     * If enabled, an object of the same type can have multiple binders
+     */
+    private boolean isSingleItemMultiviewEnabled = false;
+
     Context context;
 
     /**
@@ -43,6 +49,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         this.context = context;
         this.viewTypes = builder.viewTypes;
         this.items = builder.items;
+        this.isSingleItemMultiviewEnabled = builder.singleMulti;
     }
 
 
@@ -98,6 +105,17 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      */
     @Override
     public int getItemViewType(int position) {
+
+        Object listItem = getItem(position);
+
+        //single item multi view support
+        if (isSingleItemMultiviewEnabled) {
+
+            if (listItem instanceof ItemViewType) {
+                return  ((ItemViewType) listItem).getViewType();
+            }
+        }
+
         return UtilList.getObjectId(getItem(position));
     }
 
@@ -124,6 +142,15 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return getItemCount() > 0? getItemCount() - 1 : 0;
     }
 
+    /**
+     * When enabled we'll check list objects for multi view type.
+     * A single object type can have more than one view holder as long as it inherits from ItemViewType.
+     * @param isSingleItemMultiviewEnabled
+     */
+    public void enableSingleMultiview(boolean isSingleItemMultiviewEnabled) {
+        this.isSingleItemMultiviewEnabled = isSingleItemMultiviewEnabled;
+    }
+
     /*****************************************************
      * ---------------- * Builder * --------------------
      *
@@ -136,6 +163,9 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         private List<Object> items = new ArrayList<>();
 
         List<Binder> viewTypes = new ArrayList<>();
+
+        private boolean singleMulti = false;
+
 
         public Builder item(Object item){
             this.items.add(item);
@@ -156,6 +186,12 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         public Builder binders(List<Binder> viewTypes){
             this.viewTypes.addAll(viewTypes);
+            return this;
+        }
+
+        public Builder enableSingleMulti(boolean enable){
+            this.singleMulti = enable;
+
             return this;
         }
 

@@ -20,7 +20,8 @@ public class UserViewHolderHolder  extends BaseViewHolder{
      * @param itemView
      */
     public UserViewHolderHolder(View itemView) {
-
         super(itemView);
     }
+
+
 }

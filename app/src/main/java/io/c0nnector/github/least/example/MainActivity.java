@@ -13,8 +13,10 @@ import io.c0nnector.github.least.example.banner.BannerBinder;
 import io.c0nnector.github.least.example.banner.BannerViewHolderHolder;
 import io.c0nnector.github.least.example.header.HeaderBinder;
 import io.c0nnector.github.least.example.header.HeaderViewHolder;
+import io.c0nnector.github.least.example.user.SecondUserBinder;
 import io.c0nnector.github.least.example.user.User;
 import io.c0nnector.github.least.example.user.UserBinder;
+import io.c0nnector.github.least.example.user.UserSecondViewHolder;
 import io.c0nnector.github.least.example.user.UserViewHolderHolder;
 import io.c0nnector.github.least.LeastAdapter;
 import io.c0nnector.github.least.LeastView;
@@ -36,13 +38,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupRecyclerView(){
 
-
-
         //adapter builder
         LeastAdapter adapter = new LeastAdapter.Builder()
 
                 // 1) bind the view types you want to display
                 .binder(new UserBinder(User.class, UserViewHolderHolder.class, R.layout.layout_user))
+                .binder(new SecondUserBinder(User.class, UserSecondViewHolder.class, R.layout.layout_user_second))
                 .binder(new BannerBinder(Banner.class, BannerViewHolderHolder.class, R.layout.layout_banner))
                 .binder(new HeaderBinder(String.class, HeaderViewHolder.class, R.layout.layout_header))
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 // 3) done
                 .build(this);
 
+        adapter.enableSingleMultiview(true);
 
         leastView.setAdapter(adapter);
 
