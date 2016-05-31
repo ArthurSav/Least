@@ -4,14 +4,12 @@ package io.c0nnector.github.least.example.user;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
-
-import io.c0nnector.github.least.example.R;
 import io.c0nnector.github.least.BaseViewHolder;
+import io.c0nnector.github.least.example.R;
 
-public class UserViewHolderHolder  extends BaseViewHolder{
+public class UserViewHolderHolder extends BaseViewHolder {
 
-    @Bind(R.id.textView)
+
     public TextView textView;
 
     /**
@@ -21,6 +19,7 @@ public class UserViewHolderHolder  extends BaseViewHolder{
      */
     public UserViewHolderHolder(View itemView) {
         super(itemView);
+        textView = (TextView) itemView.findViewById(R.id.textView);
     }
 
 

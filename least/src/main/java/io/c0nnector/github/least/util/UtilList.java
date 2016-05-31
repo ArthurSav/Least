@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class UtilList {
 
+
     /**
      * Inflates a viewholder of any type
      *
@@ -18,6 +19,7 @@ public class UtilList {
      * @param viewId
      * @param viewHolderClass
      * @param <T>
+     *
      * @return
      */
     public static <T extends RecyclerView.ViewHolder> T getViewHolder(ViewGroup viewGroup, @LayoutRes int viewId, Class<T> viewHolderClass) {
@@ -48,14 +50,16 @@ public class UtilList {
 
     /**
      * Creates an object id based on the object's name
+     *
      * @param object
+     *
      * @return
      */
-    public static int getObjectId(Object object){
+    public static int getObjectId(Object object) {
         return object.getClass().getCanonicalName().hashCode();
     }
 
-    public static <T>int getClassId(Class<T> cls){
+    public static <T> int getClassId(Class<T> cls) {
         return cls.getCanonicalName().hashCode();
     }
 }

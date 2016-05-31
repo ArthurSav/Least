@@ -3,16 +3,13 @@ package io.c0nnector.github.least.example.header;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
-import io.c0nnector.github.least.example.R;
 import io.c0nnector.github.least.BaseViewHolder;
+import io.c0nnector.github.least.example.R;
 
-/**
- * Created by arthur on 8/5/15.
- */
-public class HeaderViewHolder extends BaseViewHolder{
 
-    @Bind(R.id.txtTitle)
+public class HeaderViewHolder extends BaseViewHolder {
+
+
     public TextView txtTitle;
 
     /**
@@ -21,7 +18,8 @@ public class HeaderViewHolder extends BaseViewHolder{
      * @param itemView
      */
     public HeaderViewHolder(View itemView) {
-
         super(itemView);
+
+        txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
     }
 }

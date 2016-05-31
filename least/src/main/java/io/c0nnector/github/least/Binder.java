@@ -3,7 +3,6 @@ package io.c0nnector.github.least;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import io.c0nnector.github.least.util.UtilList;
  */
 public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
 
+
     @Nullable
     protected Context context;
 
@@ -28,70 +28,42 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
     @Nullable
     ListItemListener<Viewholder, Item> listItemListener;
 
-    @LayoutRes
-    int layoutId;
 
-    @NonNull
-    Class<Item> itemClass;
-
-    @NonNull
-    Class<Viewholder> cls;
-
-    /**
-     * Constructor
-     *
-     * @param itemClass An object to be tied with the viewholder. e.g User.class is tied to UserViewholder.class
-     * @param cls viewholder class to be tied to a list object e.g UserViewholder.class is tied to User.class
-     * @param layoutId layout id for the viewholder view
-     */
-    public Binder(Class<Item> itemClass, Class<Viewholder> cls, @LayoutRes int layoutId) {
-        this.itemClass = itemClass;
-        this.cls = cls;
-        this.layoutId = layoutId;
-    }
-
-    /**
-     * Constructor
-     *
-     * @param context
-     * @param itemClass An object to be tied with the viewholder. e.g User.class is tied to UserViewholder.class
-     * @param cls viewholder class to be tied to a list object e.g UserViewholder.class is tied to User.class
-     * @param layoutId layout id for the viewholder view
-     */
-    public Binder(Context context, Class<Item> itemClass, Class<Viewholder> cls, @LayoutRes int layoutId) {
-        this.itemClass = itemClass;
-        this.cls = cls;
-        this.layoutId = layoutId;
+    public Binder(Context context) {
         this.context = context;
     }
 
-
-    /**
-     * Creates a viewholder given the class and layout
-     * @param parent
-     * @return
-     */
-    public Viewholder getViewHolder(ViewGroup parent) {
-        return UtilList.getViewHolder(parent, layoutId, cls);
+    public Binder() {
     }
 
     /**
-     * Called when the adapter's onBind matches a viewholder to a list item
-     * A callback will be invoked too, if defined
+     * Creates a viewholder given the class and layout
      *
-     * @param holder viewholder
-     * @param item list item tied to the viewholder
+     * @param parent
+     *
+     * @return
+     */
+    public Viewholder getViewHolder(ViewGroup parent) {
+        return UtilList.getViewHolder(parent, getLayoutId(), getViewHolderClass());
+    }
+
+    /**
+     * Called when the adapter's onBind matches a viewholder to a list item A callback will be
+     * invoked too, if defined
+     *
+     * @param holder   viewholder
+     * @param item     list item tied to the viewholder
      * @param position list position
      */
-    public void onBindCallback(final Viewholder holder, final Item item, final int position){
+    public void onBindCallback(final Viewholder holder, final Item item, final int position) {
 
         onBindViewHolder(holder, item, position);
 
         //bind callback
-        if (bindListener !=null) bindListener.onBindViewHolder(holder, item, position);
+        if (bindListener != null) bindListener.onBindViewHolder(holder, item, position);
 
         //list item click callback
-        if (listItemListener !=null) {
+        if (listItemListener != null) {
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -104,22 +76,35 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
     }
 
     /**
-     * @return list item class
+     * @return a unique identifier for this view type
      */
-    public Class<Item> getListItemClass(){
-        return itemClass;
-    }
-
-    /**
-     * Returns a unique identifier for this view type
-     * @return
-     */
-    public int getViewType(){
-        return UtilList.getClassId(itemClass);
+    public int getViewType() {
+        return UtilList.getClassId(getItemClass());
     }
 
     public abstract void onBindViewHolder(Viewholder holder, Item item, int position);
 
+    /**
+     * Layout id used to create the viewholder
+     *
+     * @return
+     */
+    @LayoutRes
+    public abstract int getLayoutId();
+
+    /**
+     * Class of the viewholder
+     *
+     * @return
+     */
+    public abstract Class<Viewholder> getViewHolderClass();
+
+    /**
+     * Class of the object that is binded to this view
+     *
+     * @return
+     */
+    public abstract Class<Item> getItemClass();
 
     /*****************************************************
      * ---------------- * Listeners * --------------------
@@ -130,9 +115,10 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
 
     /**
      * OnBind listener
+     *
      * @return
      */
-    public Binder setBindListener(BindListener<Viewholder, Item> bindListener){
+    public Binder setBindListener(BindListener<Viewholder, Item> bindListener) {
         this.bindListener = bindListener;
 
         return this;
@@ -140,9 +126,10 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
 
     /**
      * List item click listener
+     *
      * @return
      */
-    public Binder setListItemClickListener(ListItemListener<Viewholder, Item> listener){
+    public Binder setListItemClickListener(ListItemListener<Viewholder, Item> listener) {
         this.listItemListener = listener;
 
         return this;

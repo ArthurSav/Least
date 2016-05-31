@@ -3,15 +3,13 @@ package io.c0nnector.github.least.example.banner;
 import android.view.View;
 import android.widget.TextView;
 
-import butterknife.Bind;
-
-import io.c0nnector.github.least.example.R;
 import io.c0nnector.github.least.BaseViewHolder;
+import io.c0nnector.github.least.example.R;
 
 
-public class BannerViewHolderHolder extends BaseViewHolder{
+public class BannerViewHolderHolder extends BaseViewHolder {
 
-    @Bind(R.id.textView2)
+
     public TextView textView;
 
     /**
@@ -21,5 +19,7 @@ public class BannerViewHolderHolder extends BaseViewHolder{
      */
     public BannerViewHolderHolder(View itemView) {
         super(itemView);
+
+        textView = (TextView) itemView.findViewById(R.id.textView2);
     }
 }

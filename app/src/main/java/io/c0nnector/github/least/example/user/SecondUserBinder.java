@@ -1,21 +1,30 @@
 package io.c0nnector.github.least.example.user;
 
 
-import android.support.annotation.LayoutRes;
-
 import io.c0nnector.github.least.Binder;
-import io.c0nnector.github.least.util.UtilList;
+import io.c0nnector.github.least.example.R;
 
 public class SecondUserBinder extends Binder<UserSecondViewHolder, User>{
 
 
-    public SecondUserBinder(Class<User> userClass, Class<UserSecondViewHolder> cls, @LayoutRes int layoutId) {
-        super(userClass, cls, layoutId);
-    }
-
     @Override
     public void onBindViewHolder(UserSecondViewHolder holder, User user, int position) {
 
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.layout_user_second;
+    }
+
+    @Override
+    public Class<UserSecondViewHolder> getViewHolderClass() {
+        return UserSecondViewHolder.class;
+    }
+
+    @Override
+    public Class<User> getItemClass() {
+        return User.class;
     }
 
     @Override
