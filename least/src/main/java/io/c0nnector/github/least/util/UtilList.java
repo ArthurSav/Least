@@ -45,6 +45,8 @@ public class UtilList {
             e.printStackTrace();
         }
 
+        if (holder == null) throw new NullPointerException("Could not inflate the provided layoutId");
+
         return holder;
     }
 
