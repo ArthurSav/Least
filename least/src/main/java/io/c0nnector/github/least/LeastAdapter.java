@@ -122,12 +122,26 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         return items != null ? items.size() : 0;
     }
 
+    /**
+     * @param position objection position in the list
+     * @return list object from certain position
+     */
     public Object getItem(int position) {
         return items.get(position);
     }
 
+    /**
+     * @return list of registered adapter items
+     */
     public List<Object> getList() {
         return items;
+    }
+
+    /**
+     * @return list of defined binders
+     */
+    public List<Binder> getBinders(){
+        return viewTypes;
     }
 
     /**
