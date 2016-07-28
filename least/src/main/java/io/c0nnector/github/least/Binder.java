@@ -48,6 +48,12 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
     }
 
     /**
+     * Called when the viewholder for this binder is created
+     * @param viewholder created viewholder
+     */
+    public void onCreateViewHolder(Viewholder viewholder){}
+
+    /**
      * Called when the adapter's onBind matches a viewholder to a list item A callback will be
      * invoked too, if defined
      *

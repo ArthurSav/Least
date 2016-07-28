@@ -68,7 +68,13 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             int baseBinderType = binder.getViewType();
 
-            if (baseBinderType == viewType) return binder.getViewHolder(parent);
+            if (baseBinderType == viewType) {
+
+                BaseViewHolder holder =  binder.getViewHolder(parent);
+                binder.onCreateViewHolder(holder);
+
+                return holder;
+            }
         }
 
         //no binder found, return empty view so it doesn't crash
