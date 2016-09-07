@@ -25,7 +25,7 @@ import io.c0nnector.github.least.util.UtilList;
  *
  * @see Binder
  */
-public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
 
     Context context;
@@ -38,7 +38,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     /**
      * List objects
      */
-    List<Object> items;
+    List<T> items;
 
     /**
      * Constructor
@@ -132,14 +132,14 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param position objection position in the list
      * @return list object from certain position
      */
-    public Object getItem(int position) {
+    public T getItem(int position) {
         return items.get(position);
     }
 
     /**
      * @return list of registered adapter items
      */
-    public List<Object> getList() {
+    public List<T> getList() {
         return items;
     }
 
@@ -163,22 +163,18 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * ---------------- * Builder * --------------------
      ****************************************************/
 
-    public static class Builder {
+    public static class Builder<T> {
 
-
-        private List<Object> items = new ArrayList<>();
-
+        private List<T> items = new ArrayList<>();
         List<Binder> viewTypes = new ArrayList<>();
 
 
-        public Builder item(Object item) {
+        public Builder item(T item) {
             this.items.add(item);
             return this;
         }
 
-        public Builder items(List items) {
-
-            //noinspection unchecked
+        public Builder items(List<T> items) {
             this.items.addAll(items);
             return this;
         }
@@ -193,8 +189,8 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             return this;
         }
 
-        public LeastAdapter build(Context context) {
-            return new LeastAdapter(context, this);
+        public LeastAdapter<T> build(Context context) {
+            return new LeastAdapter<>(context, this);
         }
     }
 
@@ -210,7 +206,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      *
      * @param items
      */
-    public void add(@NonNull List<? extends Object> items) {
+    public void add(@NonNull List<T> items) {
 
         int previousCount = getItemPositions();
 
@@ -224,7 +220,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      *
      * @param item
      */
-    public void add(Object item) {
+    public void add(T item) {
 
         getList().add(item);
 
@@ -241,7 +237,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param item
      * @param position list position to insert
      */
-    public void add(Object item, int position) {
+    public void add(T item, int position) {
 
         getList().add(position, item);
 
@@ -256,7 +252,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * @param item     item to replace with
      * @param position position to replace
      */
-    public void replace(Object item, int position) {
+    public void replace(T item, int position) {
 
         getList().set(position, item);
 
@@ -268,7 +264,7 @@ public class LeastAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      *
      * @param items
      */
-    public void replace(@NonNull List<? extends Object> items) {
+    public void replace(@NonNull List<T> items) {
 
         getList().clear();
 
