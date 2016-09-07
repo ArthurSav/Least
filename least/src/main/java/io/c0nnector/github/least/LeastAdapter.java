@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.c0nnector.github.least.util.UtilList;
 
@@ -22,6 +23,7 @@ import io.c0nnector.github.least.util.UtilList;
  *
  * @see Binder
  */
+@SuppressWarnings("unchecked")
 public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
 
@@ -35,7 +37,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     /**
      * List objects
      */
-    List<T> items;
+    List items;
 
     /**
      * Constructor
@@ -43,12 +45,11 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      * @param context
      * @param builder
      */
-    private LeastAdapter(Context context, Builder<T> builder) {
+    protected LeastAdapter(Context context, Builder builder) {
         this.context = context;
         this.viewTypes = builder.viewTypes;
         this.items = builder.items;
     }
-
 
     /**
      * Matches a binderType to a viewType
@@ -109,7 +110,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemViewType(int position) {
 
-        T listItem = getItem(position);
+        Object listItem = getItem(position);
 
         //handles objects that have more than one view in the list
         if (listItem instanceof ItemViewType) {
@@ -126,12 +127,12 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     /**
-     * @param position objection position in the list
+     * @param position item position in the list
      *
-     * @return list object from certain position
+     * @return item from position, if any
      */
     public T getItem(int position) {
-        return items.get(position);
+        return (T) items.get(position);
     }
 
     /**
@@ -157,56 +158,16 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         return getItemCount() > 0 ? getItemCount() - 1 : 0;
     }
 
-    /*****************************************************
-     * ---------------- * Builder * --------------------
-     ****************************************************/
-
-    public static class Builder<T> {
-
-
-        private List<T> items = new ArrayList<>();
-
-        List<Binder> viewTypes = new ArrayList<>();
-
-
-        public Builder item(T item) {
-            this.items.add(item);
-            return this;
-        }
-
-        public Builder items(List<T> items) {
-            this.items.addAll(items);
-            return this;
-        }
-
-        public Builder binder(Binder binder) {
-            this.viewTypes.add(binder);
-            return this;
-        }
-
-        public Builder binders(List<Binder> viewTypes) {
-            this.viewTypes.addAll(viewTypes);
-            return this;
-        }
-
-        public LeastAdapter<T> build(Context context) {
-            return new LeastAdapter<>(context, this);
-        }
-    }
-
-    /*****************************************************
-     * ---------------- * Helpers * --------------------
-     *
-     *
-     *
-     ****************************************************/
+    ///////////////////////////////////////////////////////////////////////////
+    // Add / remove
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * Adds items to the list
      *
      * @param items
      */
-    public void add(@NonNull List<T> items) {
+    public void add(@NonNull List items) {
 
         int previousCount = getItemPositions();
 
@@ -264,7 +225,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      *
      * @param items
      */
-    public void replace(@NonNull List<T> items) {
+    public void replace(@NonNull List items) {
 
         getList().clear();
 
@@ -311,6 +272,42 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         int size = getItemCount() - 1;
 
         return position <= size;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Builder
+    ///////////////////////////////////////////////////////////////////////////
+
+    @SuppressWarnings("unchecked")
+    public static class Builder {
+
+        private List items = new ArrayList<>();
+        private List<Binder> viewTypes = new ArrayList<>();
+
+
+        public Builder item(Object item) {
+            this.items.add(item);
+            return this;
+        }
+
+        public Builder items(List items) {
+            this.items.addAll(items);
+            return this;
+        }
+
+        public Builder binder(Binder binder) {
+            this.viewTypes.add(binder);
+            return this;
+        }
+
+        public Builder binders(List<Binder> viewTypes) {
+            this.viewTypes.addAll(viewTypes);
+            return this;
+        }
+
+        public LeastAdapter build(Context context) {
+            return new LeastAdapter<>(context, this);
+        }
     }
 
 }
