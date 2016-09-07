@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import io.c0nnector.github.least.util.UtilList;
 
@@ -146,7 +145,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      * @return list of defined binders
      */
     public List<Binder> getBinders() {
-        return viewTypes;
+        return viewTypes == null? viewTypes = new ArrayList<>(): viewTypes;
     }
 
     /**
@@ -261,6 +260,33 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     }
 
     /**
+     * @param binders a list of binders to add
+     */
+    public void addBinder(Binder... binders) {
+        for (Binder binder : binders) {
+            getBinders().add(binder);
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * removes current binders
+     */
+    public void removeBinders(){
+        getBinders().clear();
+        notifyDataSetChanged();
+    }
+
+    /**
+     * replaces current binders
+     * @param binders binders to replace with
+     */
+    public void replaceBinders(Binder... binders){
+        getBinders().clear();
+        addBinder(binders);
+    }
+
+    /**
      * Checks if a position is valid in the list
      *
      * @param position
@@ -281,7 +307,9 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @SuppressWarnings("unchecked")
     public static class Builder {
 
+
         private List items = new ArrayList<>();
+
         private List<Binder> viewTypes = new ArrayList<>();
 
 
