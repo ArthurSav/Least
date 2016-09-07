@@ -15,13 +15,10 @@ import io.c0nnector.github.least.util.UtilList;
 
 
 /**
- * This recyclerview adapter makes it very easy to create an adapter with multiple view types.
- * <p/>
+ * This recyclerview adapter makes it very easy to create an adapter with multiple view types. <p/>
  * Use binders to create different list view types. Each binder has a unique view & object (e.g
  * UserViewHolder.class & User.class) The adapter will 'glue' together objects to their correlating
- * view holder.
- * <p/>
- * Check the example for usage
+ * view holder. <p/> Check the example for usage
  *
  * @see Binder
  */
@@ -70,7 +67,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
             if (baseBinderType == viewType) {
 
-                BaseViewHolder holder =  binder.getViewHolder(parent);
+                BaseViewHolder holder = binder.getViewHolder(parent);
                 binder.onCreateViewHolder(holder);
 
                 return holder;
@@ -112,7 +109,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemViewType(int position) {
 
-        Object listItem = getItem(position);
+        T listItem = getItem(position);
 
         //handles objects that have more than one view in the list
         if (listItem instanceof ItemViewType) {
@@ -130,6 +127,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     /**
      * @param position objection position in the list
+     *
      * @return list object from certain position
      */
     public T getItem(int position) {
@@ -146,7 +144,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     /**
      * @return list of defined binders
      */
-    public List<Binder> getBinders(){
+    public List<Binder> getBinders() {
         return viewTypes;
     }
 
@@ -165,7 +163,9 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
     public static class Builder<T> {
 
+
         private List<T> items = new ArrayList<>();
+
         List<Binder> viewTypes = new ArrayList<>();
 
 
