@@ -43,7 +43,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      * @param context
      * @param builder
      */
-    private LeastAdapter(Context context, Builder builder) {
+    private LeastAdapter(Context context, Builder<T> builder) {
         this.context = context;
         this.viewTypes = builder.viewTypes;
         this.items = builder.items;
