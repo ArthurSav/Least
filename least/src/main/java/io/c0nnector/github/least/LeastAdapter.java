@@ -31,7 +31,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     /**
      * List binders. They define the viewtypes & object relations to viewholders
      */
-    List<Binder> viewTypes;
+    List<Binder> binders;
 
     /**
      * List objects
@@ -46,8 +46,8 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      */
     protected LeastAdapter(Context context, Builder builder) {
         this.context = context;
-        this.viewTypes = builder.viewTypes;
-        this.items = builder.items;
+        this.binders = builder.getBinders();
+        this.items = builder.getItems();
     }
 
     /**
@@ -61,7 +61,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        for (Binder binder : viewTypes) {
+        for (Binder binder : binders) {
 
             int baseBinderType = binder.getViewType();
 
@@ -87,7 +87,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
 
-        for (Binder binder : viewTypes) {
+        for (Binder binder : binders) {
 
             if (binder.getViewType() == getItemViewType(position)) {
 
@@ -145,7 +145,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      * @return list of defined binders
      */
     public List<Binder> getBinders() {
-        return viewTypes == null? viewTypes = new ArrayList<>(): viewTypes;
+        return binders == null? binders = new ArrayList<>(): binders;
     }
 
     /**
@@ -304,38 +304,50 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     // Builder
     ///////////////////////////////////////////////////////////////////////////
 
-    @SuppressWarnings("unchecked")
-    public static class Builder {
-
+    public static class Builder extends BaseBuilder<Builder, LeastAdapter>{
 
         private List items = new ArrayList<>();
+        private List<Binder> binders = new ArrayList<>();
 
-        private List<Binder> viewTypes = new ArrayList<>();
-
-
+        @Override
         public Builder item(Object item) {
             this.items.add(item);
             return this;
         }
 
+        @Override
         public Builder items(List items) {
             this.items.addAll(items);
             return this;
         }
 
+        @Override
         public Builder binder(Binder binder) {
-            this.viewTypes.add(binder);
+            this.binders.add(binder);
             return this;
         }
 
+        @Override
         public Builder binders(List<Binder> viewTypes) {
-            this.viewTypes.addAll(viewTypes);
+            this.binders.addAll(viewTypes);
             return this;
         }
 
+        @Override
         public LeastAdapter build(Context context) {
             return new LeastAdapter<>(context, this);
         }
+
+        @Override
+        public List getItems() {
+            return items;
+        }
+
+        @Override
+        List<Binder> getBinders() {
+            return binders;
+        }
     }
+
 
 }
