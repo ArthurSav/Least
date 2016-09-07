@@ -10,16 +10,13 @@ import io.c0nnector.github.least.LeastAdapter;
 import io.c0nnector.github.least.LeastView;
 import io.c0nnector.github.least.example.banner.Banner;
 import io.c0nnector.github.least.example.banner.BannerBinder;
-import io.c0nnector.github.least.example.banner.BannerViewHolderHolder;
 import io.c0nnector.github.least.example.header.HeaderBinder;
-import io.c0nnector.github.least.example.header.HeaderViewHolder;
 import io.c0nnector.github.least.example.user.SecondUserBinder;
 import io.c0nnector.github.least.example.user.User;
 import io.c0nnector.github.least.example.user.UserBinder;
-import io.c0nnector.github.least.example.user.UserSecondViewHolder;
-import io.c0nnector.github.least.example.user.UserViewHolderHolder;
 
 public class MainActivity extends AppCompatActivity {
+
 
     LeastView leastView;
 
@@ -33,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setupRecyclerView();
     }
 
-    public void setupRecyclerView(){
+    public void setupRecyclerView() {
 
-        //adapter builder
+//        //adapter builder
         LeastAdapter adapter = new LeastAdapter.Builder()
 
                 // 1) bind the view types you want to display
@@ -66,14 +63,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Creates a dummy user list
+     *
      * @return
      */
-    private List<User> getUsers(){
+    private List<User> getUsers() {
 
         List<User> users = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            users.add(new User(i, "user_"+i));
+            users.add(new User(i, "user_" + i));
         }
 
         return users;
@@ -81,9 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Creates a dummy banner list
+     *
      * @return
      */
-    private List<Banner> getBanners(){
+    private List<Banner> getBanners() {
 
         List<Banner> banners = new ArrayList<>();
 
