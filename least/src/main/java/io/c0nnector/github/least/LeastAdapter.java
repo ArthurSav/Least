@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.c0nnector.github.least.util.UtilList;
-
 
 /**
  * This recyclerview adapter makes it very easy to create an adapter with multiple view types. <p/>
@@ -25,6 +23,7 @@ import io.c0nnector.github.least.util.UtilList;
 @SuppressWarnings("unchecked")
 public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
+    private static final int VIEWTYPE_NONE = -1;
 
     Context context;
 
@@ -61,17 +60,14 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        for (Binder binder : binders) {
+        if (viewType != VIEWTYPE_NONE && viewType >= binders.size()) {
 
-            int baseBinderType = binder.getViewType();
+            Binder binder = binders.get(viewType);
 
-            if (baseBinderType == viewType) {
+            BaseViewHolder holder = binder.getViewHolder(parent);
+            binder.onCreateViewHolder(holder);
 
-                BaseViewHolder holder = binder.getViewHolder(parent);
-                binder.onCreateViewHolder(holder);
-
-                return holder;
-            }
+            return holder;
         }
 
         //no binder found, return empty view so it doesn't crash
@@ -87,15 +83,14 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
 
-        for (Binder binder : binders) {
+        int itemViewType = getItemViewType(position);
 
-            if (binder.getViewType() == getItemViewType(position)) {
+        if (itemViewType != VIEWTYPE_NONE) {
 
-                //noinspection unchecked
-                binder.onBindCallback(holder, getItem(position), position);
+            Binder binder = binders.get(itemViewType);
 
-                break;
-            }
+            //noinspection unchecked
+            binder.onBindCallback(holder, getItem(position), position);
         }
     }
 
@@ -113,12 +108,23 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
         //handles objects that have more than one view in the list
         if (listItem instanceof ItemViewType) {
-            return ((ItemViewType) listItem).getViewType();
+            int type = ((ItemViewType) listItem).getViewType();
+            if (type >= binders.size()) throw new IllegalStateException("Your custom view type should have an int > than the current number of binders");
+            return type;
         }
 
-        return UtilList.getObjectId(getItem(position));
+        return getKeyViewType(listItem);
     }
 
+    private int getKeyViewType(Object listItem){
+
+        int size = binders.size();
+        for (int i = 0; i < size; i++) {
+            if (binders.get(i).getItemClass().isInstance(listItem)) return i;
+        }
+
+        return VIEWTYPE_NONE;
+    }
 
     @Override
     public int getItemCount() {

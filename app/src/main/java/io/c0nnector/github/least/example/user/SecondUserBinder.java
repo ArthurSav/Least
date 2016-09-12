@@ -31,4 +31,5 @@ public class SecondUserBinder extends Binder<UserSecondViewHolder, User>{
     public int getViewType() {
         return 1;
     }
+
 }

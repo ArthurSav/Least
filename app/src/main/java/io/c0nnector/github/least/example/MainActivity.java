@@ -27,7 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
         leastView = (LeastView) findViewById(R.id.recyclerview);
 
-        setupRecyclerView();
+        leastView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setupRecyclerView();
+            }
+        }, 4000);
     }
 
     public void setupRecyclerView() {

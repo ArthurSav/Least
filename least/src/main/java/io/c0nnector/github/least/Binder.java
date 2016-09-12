@@ -81,12 +81,6 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
         }
     }
 
-    /**
-     * @return a unique identifier for this view type
-     */
-    public int getViewType() {
-        return UtilList.getClassId(getItemClass());
-    }
 
     public abstract void onBindViewHolder(Viewholder holder, Item item, int position);
 
@@ -111,6 +105,14 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
      * @return
      */
     public abstract Class<Item> getItemClass();
+
+    /**
+     * Override to set a custom view type. By default we use the item class to identify the type
+     * @return
+     */
+    public int getViewType(){
+        return 0;
+    }
 
     /*****************************************************
      * ---------------- * Listeners * --------------------
