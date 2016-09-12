@@ -1,11 +1,9 @@
 package io.c0nnector.github.least.example.user;
 
-import io.c0nnector.github.least.ItemViewType;
-
 /**
  * Simple user object
  */
-public class User implements ItemViewType {
+public class User implements UserType {
 
     int id;
 
@@ -27,7 +25,7 @@ public class User implements ItemViewType {
     }
 
     @Override
-    public int getViewType() {
-        return id == 1 || id == 2? 0 : 1;
+    public int getUserType() {
+        return id == 1 || id == 2? 0: 1;
     }
 }

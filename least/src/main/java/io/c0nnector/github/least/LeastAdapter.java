@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import io.c0nnector.github.least.util.UtilList;
@@ -25,6 +26,7 @@ import io.c0nnector.github.least.util.UtilList;
 @SuppressWarnings("unchecked")
 public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
+    private static final int VIEWTYPE_NONE = -1;
 
     Context context;
 
@@ -63,9 +65,10 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
         for (Binder binder : binders) {
 
-            int baseBinderType = binder.getViewType();
+            Class baseBinderType = binder.getItemClass();
+            Class givenViewType = binders.get(viewType).getItemClass();
 
-            if (baseBinderType == viewType) {
+            if (viewType != VIEWTYPE_NONE && givenViewType.equals(baseBinderType)) {
 
                 BaseViewHolder holder = binder.getViewHolder(parent);
                 binder.onCreateViewHolder(holder);
@@ -89,7 +92,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
 
         for (Binder binder : binders) {
 
-            if (binder.getViewType() == getItemViewType(position)) {
+            if (isItemViewType(position, binder.getItemClass())) {
 
                 //noinspection unchecked
                 binder.onBindCallback(holder, getItem(position), position);
@@ -99,26 +102,31 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    /**
-     * Types are created from the list object class name. We use it to tie binders & list objects
-     *
-     * @param position
-     *
-     * @return
-     */
     @Override
     public int getItemViewType(int position) {
+        int size = binders.size();
+        for (int i = 0; i < size; i++) {
+            if (isItemViewType(i, binders.get(i).getItemClass())) return i;
+        }
+        return VIEWTYPE_NONE;
+    }
+
+    /**
+     * @param position current list position
+     * @param viewTypeClass class to compare to
+     * @return true, if the current item on the list matches the given class
+     */
+    public boolean isItemViewType(int position, Class<T> viewTypeClass){
 
         Object listItem = getItem(position);
 
         //handles objects that have more than one view in the list
         if (listItem instanceof ItemViewType) {
-            return ((ItemViewType) listItem).getViewType();
+            return ((ItemViewType) listItem).getViewType().isInstance(viewTypeClass);
         }
 
-        return UtilList.getObjectId(getItem(position));
+        return listItem.getClass().isInstance(viewTypeClass);
     }
-
 
     @Override
     public int getItemCount() {

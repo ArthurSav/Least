@@ -9,5 +9,5 @@ public interface ItemViewType {
     /**
      * Used to match the object type with a viewholder type
      */
-    int getViewType();
+    Class getViewType();
 }

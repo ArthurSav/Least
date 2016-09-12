@@ -81,13 +81,6 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
         }
     }
 
-    /**
-     * @return a unique identifier for this view type
-     */
-    public int getViewType() {
-        return UtilList.getClassId(getItemClass());
-    }
-
     public abstract void onBindViewHolder(Viewholder holder, Item item, int position);
 
     /**

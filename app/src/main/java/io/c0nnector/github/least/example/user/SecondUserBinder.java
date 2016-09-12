@@ -26,9 +26,4 @@ public class SecondUserBinder extends Binder<UserSecondViewHolder, User>{
     public Class<User> getItemClass() {
         return User.class;
     }
-
-    @Override
-    public int getViewType() {
-        return 1;
-    }
 }

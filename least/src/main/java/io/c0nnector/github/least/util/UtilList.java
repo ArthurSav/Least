@@ -49,19 +49,4 @@ public class UtilList {
 
         return holder;
     }
-
-    /**
-     * Creates an object id based on the object's name
-     *
-     * @param object
-     *
-     * @return
-     */
-    public static int getObjectId(Object object) {
-        return object.getClass().getCanonicalName().hashCode();
-    }
-
-    public static <T> int getClassId(Class<T> cls) {
-        return cls.getCanonicalName().hashCode();
-    }
 }

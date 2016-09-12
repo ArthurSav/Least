@@ -4,7 +4,7 @@ import io.c0nnector.github.least.Binder;
 import io.c0nnector.github.least.example.R;
 
 
-public class UserBinder extends Binder<UserViewHolderHolder, User> {
+public class UserBinder extends Binder<UserViewHolderHolder, User>{
 
     @Override
     public void onBindViewHolder(UserViewHolderHolder holder, User user, int position) {
@@ -24,10 +24,5 @@ public class UserBinder extends Binder<UserViewHolderHolder, User> {
     @Override
     public Class<User> getItemClass() {
         return User.class;
-    }
-
-    @Override
-    public int getViewType() {
-        return 0;
     }
 }
