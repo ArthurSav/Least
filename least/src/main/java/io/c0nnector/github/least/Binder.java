@@ -111,7 +111,11 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
      * @return
      */
     public int getViewType(){
-        return 0;
+        return -1;
+    }
+
+    public boolean isViewTypeCustom(){
+        return getViewType() != -1;
     }
 
     /*****************************************************
@@ -128,7 +132,6 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
      */
     public Binder setBindListener(BindListener<Viewholder, Item> bindListener) {
         this.bindListener = bindListener;
-
         return this;
     }
 
@@ -139,7 +142,6 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
      */
     public Binder setListItemClickListener(ListItemListener<Viewholder, Item> listener) {
         this.listItemListener = listener;
-
         return this;
     }
 

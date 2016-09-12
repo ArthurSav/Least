@@ -60,7 +60,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if (viewType != VIEWTYPE_NONE && viewType >= binders.size()) {
+        if (viewType != VIEWTYPE_NONE) {
 
             Binder binder = binders.get(viewType);
 
@@ -103,28 +103,34 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      */
     @Override
     public int getItemViewType(int position) {
-
         Object listItem = getItem(position);
-
-        //handles objects that have more than one view in the list
-        if (listItem instanceof ItemViewType) {
-            int type = ((ItemViewType) listItem).getViewType();
-            if (type >= binders.size()) throw new IllegalStateException("Your custom view type should have an int > than the current number of binders");
-            return type;
-        }
-
-        return getKeyViewType(listItem);
+        return getItemViewType(listItem);
     }
 
-    private int getKeyViewType(Object listItem){
+    /**
+     * Identifies a list as a view type
+     * @param item list item
+     * @return existing viewtype from the binder list
+     */
+    private int getItemViewType(Object item){
 
-        int size = binders.size();
-        for (int i = 0; i < size; i++) {
-            if (binders.get(i).getItemClass().isInstance(listItem)) return i;
+        for (int i = 0; i < binders.size(); i++) {
+
+            Binder binder = binders.get(i);
+
+            if (item instanceof ItemViewType && binder.isViewTypeCustom() ) {
+                int itemType = ((ItemViewType) item).getViewType();
+                int binderType = binder.getViewType();
+                if (itemType == binderType) return i;
+            }
+
+            else if (!binder.isViewTypeCustom() && binder.getItemClass().isInstance(item)) return i;
         }
 
         return VIEWTYPE_NONE;
     }
+
+
 
     @Override
     public int getItemCount() {

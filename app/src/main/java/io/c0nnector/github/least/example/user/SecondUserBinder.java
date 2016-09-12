@@ -29,7 +29,7 @@ public class SecondUserBinder extends Binder<UserSecondViewHolder, User>{
 
     @Override
     public int getViewType() {
-        return 1;
+        return 2;
     }
 
 }

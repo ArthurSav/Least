@@ -27,12 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         leastView = (LeastView) findViewById(R.id.recyclerview);
 
-        leastView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setupRecyclerView();
-            }
-        }, 4000);
+        setupRecyclerView();
     }
 
     public void setupRecyclerView() {
@@ -53,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 .item("Section 2")
                 .items(getBanners())
 
-
                 .item("Section 3")
                 .items(getUsers())
+
 
                 // 3) done
                 .build(this);

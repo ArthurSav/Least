@@ -28,6 +28,6 @@ public class User implements ItemViewType {
 
     @Override
     public int getViewType() {
-        return id == 1 || id == 2? 0 : 1;
+        return id <= 2? 1 : 2;
     }
 }
