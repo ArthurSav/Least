@@ -16,6 +16,6 @@ public abstract class BaseBuilder<CustomBuilder, CustomAdapter extends LeastAdap
 
     public abstract CustomAdapter build(Context context);
 
-    public abstract List getItems();
-    public abstract List<Binder> getBinders();
+    abstract List getItems();
+    abstract List<Binder> getBinders();
 }
