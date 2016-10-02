@@ -356,7 +356,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         }
 
         @Override
-        List<Binder> getBinders() {
+        public List<Binder> getBinders() {
             return binders;
         }
     }
