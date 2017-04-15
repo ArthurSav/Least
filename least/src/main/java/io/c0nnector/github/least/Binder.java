@@ -69,16 +69,13 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
         if (bindListener != null) bindListener.onBindViewHolder(holder, item, position);
 
         //list item click callback
-        if (listItemListener != null) {
-
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    listItemListener.onListItemClick(holder, item, position);
+                    if(listItemListener != null) listItemListener.onListItemClick(holder, item, position);
                 }
             });
-        }
     }
 
 
