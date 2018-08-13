@@ -1,7 +1,6 @@
 package io.c0nnector.github.least.example.user;
 
 import io.c0nnector.github.least.Binder;
-import io.c0nnector.github.least.ItemViewType;
 import io.c0nnector.github.least.example.R;
 
 
