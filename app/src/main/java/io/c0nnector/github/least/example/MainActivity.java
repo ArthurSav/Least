@@ -1,13 +1,15 @@
 package io.c0nnector.github.least.example;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.RecyclerView;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.c0nnector.github.least.LeastAdapter;
-import io.c0nnector.github.least.LeastView;
 import io.c0nnector.github.least.example.banner.Banner;
 import io.c0nnector.github.least.example.banner.BannerBinder;
 import io.c0nnector.github.least.example.header.HeaderBinder;
@@ -17,15 +19,14 @@ import io.c0nnector.github.least.example.user.UserBinder;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    LeastView leastView;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        leastView = (LeastView) findViewById(R.id.recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
 
         setupRecyclerView();
     }
@@ -51,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
                 .item("Section 3")
                 .items(getUsers())
 
-
                 // 3) done
                 .build(this);
 
-        leastView.setAdapter(adapter);
-
-        //bonus divider if you use the LeastView
-        leastView.setDivider(true);
+        HorizontalDividerItemDecoration dividerItemDecoration = new HorizontalDividerItemDecoration.Builder(this)
+            .color(Color.GRAY)
+            .build();
+        recyclerView.addItemDecoration(dividerItemDecoration);
+        recyclerView.setAdapter(adapter);
     }
 
     /**
