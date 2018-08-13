@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupRecyclerView() {
 
-//        //adapter builder
+        //adapter builder
         LeastAdapter adapter = new LeastAdapter.Builder()
 
                 // 1) bind the view types you want to display
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         HorizontalDividerItemDecoration dividerItemDecoration = new HorizontalDividerItemDecoration.Builder(this)
             .color(Color.GRAY)
             .build();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
     }
