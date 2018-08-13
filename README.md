@@ -2,7 +2,7 @@
 Least amount of effort to add multiple views in a recyclerview.
 
 
-####LeastAdapter
+## LeastAdapter
 
 ```java
 
@@ -30,12 +30,12 @@ Least amount of effort to add multiple views in a recyclerview.
 ```
 <img src="http://fat.gfycat.com/AbsoluteMediocreBaiji.gif" width="300">
 
-####Details
+#### Details
 The idea is that you bind an object class to a viewholder. The object class is your typical list item e.g User.class
 
 Let's say you want to display 3 different kind of views. A **user view**, a **banner view** and a **header view**.
 
-#####First step
+##### First step
 Create a binder for each view type by extending the **Binder** class, like so:
 
 ```java
@@ -51,7 +51,7 @@ public class UserBinder extends Binder<UserViewHolderHolder, User> {
 ```
 Do the same for your other views
 
-#####Last step
+##### Last step
 That's pretty much it. Just use the binder to your adapter like so:
 
 ```java
@@ -66,28 +66,12 @@ new LeastAdapter.Builder()
 ```
 Check the example for more
 
-##Bonus
-
-####LeastView
-
-```java
-<io.c0nnector.github.least.LeastView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/leastView"/>
+# Proguard
+```
+-keep class * extends io.c0nnector.github.least.Binder { *; }
 ```
 
-Add a divider
-```java
-leastView.setDivider(true);
-```
-
-**NO MORE lines like this**, unless you want to change it. (Default layout manager is set upon inflation)
-```java
-recyclerview.setLayoutManager(new LinearLayoutManager(this));
-```
-
-#Install
+# Install
 **1. Add it in your build.gradle at the end of repositories:**
 
 ```
