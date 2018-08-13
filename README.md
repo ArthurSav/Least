@@ -85,6 +85,6 @@ repositories {
 
 ```
 dependencies {
-	        compile 'com.github.c0nnector:Least:1.0'
+	        compile 'com.github.c0nnector:Least:1.1'
 	}
 ```
