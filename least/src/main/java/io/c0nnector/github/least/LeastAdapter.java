@@ -104,7 +104,7 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     @Override
     public int getItemViewType(int position) {
         Object listItem = getItem(position);
-        return getItemViewType(listItem);
+        return getItemViewType(listItem, position);
     }
 
     /**
@@ -112,24 +112,15 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
      * @param item list item
      * @return existing viewtype from the binder list
      */
-    private int getItemViewType(Object item){
-
+    private int getItemViewType(Object item, int position){
         for (int i = 0; i < binders.size(); i++) {
-
             Binder binder = binders.get(i);
-
-            if (item instanceof ItemViewType && binder.isViewTypeCustom() ) {
-                int itemType = ((ItemViewType) item).getViewType();
-                int binderType = binder.getViewType();
-                if (itemType == binderType) return i;
+            if (binder.getItemClass().isInstance(item) && binder.onViewType(item, position)) {
+                return i;
             }
-
-            else if (!binder.isViewTypeCustom() && binder.getItemClass().isInstance(item)) return i;
         }
-
         return VIEWTYPE_NONE;
     }
-
 
 
     @Override
@@ -342,6 +333,10 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         public Builder binders(List<Binder> viewTypes) {
             this.binders.addAll(viewTypes);
+            return this;
+        }
+
+        public Builder create(){
             return this;
         }
 

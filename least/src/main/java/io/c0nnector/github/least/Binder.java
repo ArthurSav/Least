@@ -78,6 +78,17 @@ public abstract class Binder<Viewholder extends BaseViewHolder, Item> {
             });
     }
 
+    /**
+     * Use this if you want have different binders for the same view object.
+     *
+     * i.e have BinderUserMe.class, BinderUserOther.class could both belong to User.class. Binders could be returned based on position or other criteria
+     *
+     * @return true if you want to use this view type (default), false if you want to skip.
+     */
+    public boolean onViewType(Item item, int position){
+        return true;
+    }
+
 
     public abstract void onBindViewHolder(Viewholder holder, Item item, int position);
 
