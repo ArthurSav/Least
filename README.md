@@ -75,16 +75,11 @@ Check the example for more
 **1. Add it in your build.gradle at the end of repositories:**
 
 ```
-repositories {
-	    // ...
-	    maven { url "https://jitpack.io" }
-	}
+repositories { maven { url "https://jitpack.io" } }
 ```
 	
 **2. Add the dependency in the form**
 
 ```
-dependencies {
-	        compile 'com.github.c0nnector:Least:1.5'
-	}
+implementation 'com.github.ArthurSav:Least:master-SNAPSHOT'
 ```
