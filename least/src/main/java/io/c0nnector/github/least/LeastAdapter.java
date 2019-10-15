@@ -128,6 +128,17 @@ public class LeastAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
         return items != null ? items.size() : 0;
     }
 
+    @Override
+    public long getItemId(int position) {
+        if (hasStableIds()) {
+            Object o = getItem(position);
+            if (o != null) {
+                return o.hashCode();
+            }
+        }
+        return super.getItemId(position);
+    }
+
     /**
      * @param position item position in the list
      *
